@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SW Parc Bordelais - Communauté</title>
+  
+  <!-- SEO -->
+  <meta name="description" content="Rejoins la communauté SW Parc Bordelais pour partager, échanger et progresser ensemble.">
+  <meta name="keywords" content="street workout, communauté, callisthenie, streetlifting, bordeaux">
+  
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">SW Parc Bordelais</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="activities.html">Activités</a></li>
+        <li><a href="community.html" class="active">Communauté</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <h1>Notre Communauté</h1>
+    <p>Partage, motivation et entraide sont au cœur de SW Parc Bordelais.</p>
+  </section>
+
+  <section class="community-section">
+    <p>
+      Rejoindre notre communauté, c’est intégrer un groupe passionné qui s’entraide au quotidien.
+      Nous organisons régulièrement des rencontres d’entraînement, des échanges de conseils 
+      et des défis pour progresser ensemble.
+    </p>
+
+    <!-- Formulaire de présence -->
+    <h2>J'annonce ma venue !</h2>
+    <div style="max-width:400px; margin: 0 auto;">
+      <form id="presenceForm">
+        <label for="presenceName">Ton nom (ou pseudo)</label>
+        <input type="text" id="presenceName" required />
+
+        <label for="presenceDate">Date</label>
+        <input type="date" id="presenceDate" required />
+
+        <label for="presenceTime">Heure</label>
+        <input type="time" id="presenceTime" required />
+
+        <button type="submit" style="margin-top:10px;">Je viens !</button>
+      </form>
+      <div id="presenceResult" style="margin-top:10px; color:#333;"></div>
+    </div>
+
+    <!-- Liste des présences -->
+    <h2 style="margin-top:2rem;">Qui compte venir prochainement ?</h2>
+    <div id="presenceList" style="max-width:600px; margin: 1rem auto; text-align:left;">
+      <!-- Liste chargée en JS -->
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 SW Parc Bordelais - sw-parcbordelais.fr. Tous droits réservés.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

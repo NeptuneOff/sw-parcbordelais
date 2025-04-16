@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SW Parc Bordelais - Contact</title>
+  
+  <!-- SEO -->
+  <meta name="description" content="Contactez SW Parc Bordelais pour toute question, organisation d'événements ou collaborations.">
+  <meta name="keywords" content="contact, street workout, parc bordelais, bordeaux, callisthenie">
+  
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">SW Parc Bordelais</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="about.html">À propos</a></li>
+        <li><a href="activities.html">Activités</a></li>
+        <li><a href="community.html">Communauté</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <h1>Contact</h1>
+    <p>Une question ? Envie d’organiser un événement ou de nous rejoindre ?</p>
+  </section>
+
+  <section class="contact-section">
+    <h2>Envoyez-nous un message</h2>
+    <div class="contact-container">
+      <!-- Formulaire géré en JS via fetch -->
+      <form class="contact-form" id="contactForm">
+        <input type="text" name="name" placeholder="Ton nom" required />
+        <input type="email" name="email" placeholder="Ton email" required />
+        <textarea name="message" rows="4" placeholder="Ton message..." required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+      <div class="contact-info">
+        <h3>Adresse</h3>
+        <p>Parc Bordelais, 33000 Bordeaux</p>
+        <h3>Email</h3>
+        <p>parc.bordelais.sw@gmail.com</p>
+      </div>
+    </div>
+    <div id="contactResult" style="margin-top:1rem; color:#333; text-align:center;"></div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 SW Parc Bordelais - sw-parcbordelais.fr. Tous droits réservés.</p>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
