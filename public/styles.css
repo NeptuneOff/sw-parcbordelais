@@ -414,3 +414,99 @@ form button:hover {
     font-size: 1.8rem;
   }
 }
+
+
+/* ==================== */
+/*      NAVIGATION & HEADER  */
+/* ==================== */
+
+/* Style de base déjà défini */
+header {
+  background-color: var(--bg-color);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-primary);
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+}
+
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color var(--transition-speed);
+  position: relative;
+}
+
+/* Effet underline animé sur hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  left: 0;
+  bottom: -4px;
+  transition: width var(--transition-speed);
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+/* ==================== */
+/*         MEDIA QUERIES (MOBILE)        */
+/* ==================== */
+@media (max-width: 768px) {
+  /* Réorganisation complète de la barre de navigation */
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    gap: 0.8rem;
+  }
+  
+  .nav-links li {
+    margin: 0;
+  }
+  
+  .nav-links a {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;  /* Augmente la zone tactile */
+    width: 100%;
+    display: inline-block;
+  }
+}
