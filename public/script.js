@@ -136,6 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
         fields: ["name", "current_popularity"],
       },
       (place, status) => {
+        console.log("Status de getDetails:", status);
+        console.log("Réponse place:", place);
+    
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           const popularity = place.current_popularity;
           if (typeof popularity === "number") {
@@ -148,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     );
+    
   }
 
   afficherFrequentation();
