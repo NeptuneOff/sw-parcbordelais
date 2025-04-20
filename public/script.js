@@ -123,7 +123,7 @@ function initMap() {
   });
   const service = new google.maps.places.PlacesService(map);
   service.getDetails({
-    placeId: "INSERT_PLACE_ID_HERE",
+    placeId: "ChIJBbV3Y6XXVA0RcrvlgxqakAE",
     fields: ["name", "current_popularity"]
   }, (place, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
