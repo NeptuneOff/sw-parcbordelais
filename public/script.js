@@ -1,5 +1,6 @@
+// public/script.js
 document.addEventListener("DOMContentLoaded", () => {
-  // Toggle mobile menu
+  // --- Mobile menu toggle ---
   const hamburger = document.querySelector(".hamburger");
   const navLinks  = document.querySelector(".nav-links");
   if (hamburger && navLinks) {
@@ -8,7 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Contact form
+  // --- Active link based on URL ---
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    // Compare href to current page filename
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+
+  // --- Contact form ---
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
@@ -32,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
           result.style.color = 'red';
           result.textContent = data.error || 'Erreur.';
         }
-      } catch (err) {
+      } catch {
         result.style.color = 'red';
         result.textContent = 'Erreur réseau.';
       }
     });
   }
 
-  // Presence form
+  // --- Presence form ---
   const presenceForm = document.getElementById('presenceForm');
   if (presenceForm) {
     presenceForm.addEventListener('submit', async (e) => {
@@ -64,14 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
           result.style.color = 'red';
           result.textContent = data.error || 'Erreur.';
         }
-      } catch (err) {
+      } catch {
         result.style.color = 'red';
         result.textContent = 'Erreur réseau.';
       }
     });
   }
 
-  // Load presences list
+  // --- Load presences list ---
   async function loadPresences() {
     const list = document.getElementById('presenceList');
     if (!list) return;
@@ -92,6 +104,5 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
     }
   }
-
   loadPresences();
 });
