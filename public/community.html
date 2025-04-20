@@ -10,12 +10,20 @@
   <meta name="keywords" content="street workout, communauté, callisthenie, streetlifting, bordeaux">
   
   <link rel="stylesheet" href="styles.css"/>
+  <!-- Google Maps JS API (remplace YOUR_API_KEY) -->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
+</script>
+
 </head>
 <body>
   <header>
     <nav class="navbar">
       <div class="logo">SW Parc Bordelais</div>
       <div class="hamburger">&#9776;</div>
+<div class="theme-toggle">🌙</div>
+<ul class="nav-links">…</ul>
+
       <ul class="nav-links">
         <li><a href="index.html"</a></li>
         <li><a href="about.html">À propos</a></li>
@@ -31,6 +39,13 @@
     <h1>Notre Communauté</h1>
     <p>Partage, motivation et entraide sont au cœur de SW Parc Bordelais.</p>
   </section>
+
+  <section id="busyness-section">
+    <h2>Fréquentation actuelle</h2>
+    <div id="map"></div>
+    <p id="busyness">Chargement…</p>
+  </section>
+  
 
   <section class="community-section">
     <p>
