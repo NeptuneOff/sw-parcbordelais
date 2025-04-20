@@ -1,88 +1,102 @@
-// Dark mode + menu + forms + map busyness
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Dark mode toggle ---
-  const toggle = document.querySelector(".theme-toggle");
-  toggle?.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    // save preference
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-  });
-  // restore
-  if (localStorage.getItem("darkMode")==="true") {
-    document.body.classList.add("dark-mode");
-  }
-
   // --- Mobile menu toggle ---
   const hamburger = document.querySelector(".hamburger");
-  const navLinks  = document.querySelector(".nav-links");
-  hamburger?.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-  });
+  const navLinks = document.querySelector(".nav-links");
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  }
 
-  // --- Active link highlighting ---
+  // --- Highlight active nav link ---
   const current = window.location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".nav-links a").forEach(link => {
-    link.classList.toggle("active", link.getAttribute("href")===current);
+    const href = link.getAttribute("href");
+    if (href === current) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
   });
+
+  // --- Dark mode toggle ---
+  const toggle = document.querySelector(".theme-toggle");
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    });
+
+    // Restore dark mode preference
+    if (localStorage.getItem("darkMode") === "true") {
+      document.body.classList.add("dark-mode");
+    }
+  }
 
   // --- Contact form ---
   const contactForm = document.getElementById("contactForm");
-  contactForm?.addEventListener("submit", async e => {
-    e.preventDefault();
-    const name    = contactForm.name.value;
-    const email   = contactForm.email.value;
-    const message = contactForm.message.value;
-    const resDiv  = document.getElementById("contactResult");
-    try {
-      const res = await fetch("/api/contact", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({name,email,message})
-      });
-      const data = await res.json();
-      if (res.ok) {
-        resDiv.style.color="green";
-        resDiv.textContent=data.message||"Message envoyé !";
-        contactForm.reset();
-      } else {
-        resDiv.style.color="red";
-        resDiv.textContent=data.error||"Erreur.";
+  if (contactForm) {
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = contactForm.querySelector('input[name="name"]').value;
+      const email = contactForm.querySelector('input[name="email"]').value;
+      const message = contactForm.querySelector('textarea[name="message"]').value;
+      const result = document.getElementById("contactResult");
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          result.style.color = "green";
+          result.textContent = data.message || "Message envoyé !";
+          contactForm.reset();
+        } else {
+          result.style.color = "red";
+          result.textContent = data.error || "Erreur.";
+        }
+      } catch {
+        result.style.color = "red";
+        result.textContent = "Erreur réseau.";
       }
-    } catch {
-      resDiv.style.color="red";
-      resDiv.textContent="Erreur réseau.";
-    }
-  });
+    });
+  }
 
   // --- Presence form ---
   const presenceForm = document.getElementById("presenceForm");
-  presenceForm?.addEventListener("submit", async e => {
-    e.preventDefault();
-    const name = presenceForm.presenceName.value;
-    const date = presenceForm.presenceDate.value;
-    const time = presenceForm.presenceTime.value;
-    const resDiv = document.getElementById("presenceResult");
-    try {
-      const res = await fetch("/api/presences", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({name,date,time})
-      });
-      const data = await res.json();
-      if (res.ok) {
-        resDiv.style.color="green";
-        resDiv.textContent="Présence enregistrée !";
-        presenceForm.reset();
-        loadPresences();
-      } else {
-        resDiv.style.color="red";
-        resDiv.textContent=data.error||"Erreur.";
+  if (presenceForm) {
+    presenceForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("presenceName").value;
+      const date = document.getElementById("presenceDate").value;
+      const time = document.getElementById("presenceTime").value;
+      const result = document.getElementById("presenceResult");
+
+      try {
+        const res = await fetch("/api/presences", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, date, time }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          result.style.color = "green";
+          result.textContent = "Présence enregistrée !";
+          presenceForm.reset();
+          loadPresences();
+        } else {
+          result.style.color = "red";
+          result.textContent = data.error || "Erreur.";
+        }
+      } catch {
+        result.style.color = "red";
+        result.textContent = "Erreur réseau.";
       }
-    } catch {
-      resDiv.style.color="red";
-      resDiv.textContent="Erreur réseau.";
-    }
-  });
+    });
+  }
 
   // --- Load presences list ---
   async function loadPresences() {
@@ -94,10 +108,10 @@ document.addEventListener("DOMContentLoaded", () => {
       list.innerHTML = "";
       data.forEach(item => {
         const div = document.createElement("div");
-        div.style.padding="8px";
-        div.style.marginBottom="4px";
-        div.style.border="1px solid #ccc";
-        div.style.borderRadius="4px";
+        div.style.padding = "8px";
+        div.style.marginBottom = "4px";
+        div.style.border = "1px solid #ccc";
+        div.style.borderRadius = "4px";
         div.textContent = `${item.name} — le ${item.date} à ${item.time}`;
         list.appendChild(div);
       });
@@ -105,31 +119,36 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(err);
     }
   }
-  loadPresences();
-});
 
-// --- Google Maps Places for busyness ---
-function initMap() {
-  const mapDiv = document.getElementById("map");
-  if (!mapDiv) return;
-  const center = { lat: 44.837789, lng: -0.57918 }; // Bordeaux ~ Parc Bordelais
-  const map = new google.maps.Map(mapDiv, {
-    center,
-    zoom: 15,
-    disableDefaultUI: true,
-    styles: document.body.classList.contains("dark-mode")
-      ? [ /* éventuel style sombre pour la carte */ ]
-      : []
-  });
-  const service = new google.maps.places.PlacesService(map);
-  service.getDetails({
-    placeId: "ChIJBbV3Y6XXVA0RcrvlgxqakAE",
-    fields: ["name", "current_popularity"]
-  }, (place, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      const pct = place.current_popularity ?? "N/D";
-      document.getElementById("busyness").textContent =
-        `Fréquentation actuelle : ${pct}%`;
-    }
-  });
-}
+  loadPresences();
+
+  // --- Fréquentation Google Places ---
+  function afficherFrequentation() {
+    const busynessEl = document.getElementById("busyness");
+    if (!busynessEl) return;
+
+    const map = new google.maps.Map(document.createElement("div"));
+    const service = new google.maps.places.PlacesService(map);
+
+    service.getDetails(
+      {
+        placeId: "ChIJBbV3Y6XXVA0RcrvlgxqakAE",
+        fields: ["name", "current_popularity"],
+      },
+      (place, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          const popularity = place.current_popularity;
+          if (typeof popularity === "number") {
+            busynessEl.textContent = `Il y a actuellement une fréquentation estimée à ${popularity}%.`;
+          } else {
+            busynessEl.textContent = "Fréquentation actuelle indisponible.";
+          }
+        } else {
+          busynessEl.textContent = "Erreur lors du chargement de la fréquentation.";
+        }
+      }
+    );
+  }
+
+  afficherFrequentation();
+});
